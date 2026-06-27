@@ -1,0 +1,71 @@
+---
+interface Props {
+  activePage?: string;
+}
+
+const { activePage = "about" } = Astro.props;
+
+const navItems = [
+  { label: "À propos",    href: "#about",      id: "about" },
+  { label: "Compétences", href: "#skills",      id: "skills" },
+  { label: "Parcours",    href: "#experience",  id: "experience" },
+  { label: "Projets",     href: "#projects",    id: "projects" },
+];
+---
+
+<header class="bg-[var(--color-cream)] border-b border-[var(--color-cream-border)]">
+  <div class="max-w-6xl mx-auto px-10 py-5 flex items-center justify-between">
+
+    <!-- Logo / Nom -->
+    <a href="/" class="flex items-center gap-3">
+      <span class="
+        w-10 h-10 rounded-full
+        bg-[var(--color-blue)]
+        flex items-center justify-center
+        text-white text-base font-bold
+        select-none shrink-0
+      ">
+        A
+      </span>
+      <span class="font-bold text-lg text-[var(--color-navy)] tracking-tight" style="font-family: var(--font-display);">
+        Alexis Gilbert
+      </span>
+    </a>
+
+    <!-- Navigation -->
+    <nav aria-label="Navigation principale">
+      <ul class="flex items-center gap-1.5">
+        {navItems.map(({ label, href, id }) => (
+          <li>
+            <a
+              href={href}
+              class={[
+                "px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150",
+                activePage === id
+                  ? "bg-[var(--color-pill-active)] text-[var(--color-navy)]"
+                  : "text-[var(--color-navy-muted)] hover:text-[var(--color-navy)]",
+              ].join(" ")}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+
+        <!-- Contact — CTA -->
+        <li class="ml-2">
+          <a
+            href="#contact"
+            class="
+              px-4 py-2 rounded-full text-sm font-medium
+              bg-[var(--color-blue)] text-white
+              hover:opacity-90 transition-opacity duration-150
+            "
+          >
+            Contact
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</header>
